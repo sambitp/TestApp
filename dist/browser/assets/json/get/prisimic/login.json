@@ -1,0 +1,8 @@
+{
+    "userId": {
+        "placeholder": "USER ID"
+    },
+    "password": {
+        "placeholder": "PASSWORD"
+    }
+}
