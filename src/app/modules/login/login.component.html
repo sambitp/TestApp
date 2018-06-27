@@ -1,0 +1,26 @@
+<div class="container-fluid top-padd">
+<div class="row">
+<div class="col-md-4"></div>
+<div class="col-md-4">
+<section>
+  <mat-card>
+    <form [formGroup]="loginForm">
+      <!--userId No.-->
+      <mat-form-field>
+        <input type="text" maxlength="10" matInput placeholder="{{content.userId.placeholder}}" formControlName="userId" appAlphaCharOnly >
+      </mat-form-field>
+      <span *ngIf="error.userId">{{error.userId}}</span>
+      <!--Password-->
+      <mat-form-field>
+        <input type="{{inputType}}" maxlength="10" matInput placeholder="{{content.password.placeholder}}" formControlName="password" >
+      </mat-form-field>       
+      <span *ngIf="error.password">{{error.password}}</span> 
+      <button  class="btn-primary" mat-button [disabled]="validateForm()" (click)="onSubmit()" >Login</button>
+      <a class="btn-primary" mat-button [routerLink]="['/welcome']" >Cancel</a>
+    </form>
+    </mat-card> 
+</section>
+</div>
+<div class="col-md-4"></div>
+</div>
+</div>
