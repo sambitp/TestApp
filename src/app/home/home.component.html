@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row" style="margin-top: 20px">
+    <div class="col-sm-12 col-xs-12 col-lg-12">
+      <h1>Label Maker</h1>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table" *ngIf="labelsArray.length">
+      <thead>
+      <th>S No</th>
+      <th>Sender Name</th>
+      <th>Reciever Name</th>
+      <th>Delivery Type</th>
+      <th>Weight</th>
+      <th>Delivery Charges</th>
+      </thead>
+      <tr *ngFor="let label of labelsArray; index as i">
+        <td>{{i + 1}}</td>
+        <td>{{label.senderInfo.name}}</td>
+        <td>{{label.recieverInfo.name}}</td>
+        <td>{{label.delieveryType}}</td>
+        <td>{{label.weight}} gm</td>
+        <td>{{label.delieveryCharges}} INR</td>
+      </tr>
+    </table>
+  </div>
+  <div class="row">
+    <button type="button" (click)="createNewLabel()" style="border: 1px solid" class="btn btn-default">Create New Label</button>
+  </div>
+</div>

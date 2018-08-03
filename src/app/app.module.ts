@@ -1,48 +1,62 @@
-import { NgModule } from '@angular/core';
-import {TransferHttpCacheModule} from '@nguniversal/common';
-import { isPlatformBrowser } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ToastrModule } from 'ngx-toastr';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { NgModule } from '@angular/core';
 
-/*CUSTOME MODULE*/
-import { AppRoutingModule } from './app-routing.module';
-import { SharedModule} from './shared/shared.module';
-import { CoreModule } from './core/core.module';
 
-/*COMPONENT*/
 import { AppComponent } from './app.component';
-import { OfflineComponent } from './modules/offline/offline.component';
+import { LabelMakerComponent } from './label-maker/label-maker.component';
+import { SenderInfoComponent } from './steps/sender-info/sender-info.component';
+import { RecieverInfoComponent } from './steps/reciever-info/reciever-info.component';
+import { DelieveryTypeComponent } from './steps/delievery-type/delievery-type.component';
+import { WeightComponent } from './steps/weight/weight.component';
+import { SummaryComponent } from './steps/summary/summary.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {LabelsService} from "./commonServices/labelsService";
+import { HomeComponent } from './home/home.component';
+import {RouterModule, Routes} from "@angular/router";
 
-/*CONST*/
-import { environment } from '../environments/environment';
 
-import {ContentResolver} from '../app/core/resolver/content.resolver';
-import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
-const serviceWorkerPath = environment.production ? '/ngsw-worker.js' : '/ngsw-worker.js';
+const appRoutes: Routes = [
+  {
+    path : '',
+    redirectTo : '/home',
+    pathMatch : 'full'
+  },
+  {
+    path : 'home',
+    component : HomeComponent
+  },
+  {
+    path : 'lableMaker',
+    component : LabelMakerComponent
+  },
+  {
+    path  : '**',
+    component : HomeComponent
+  }
+]
 
 @NgModule({
   declarations: [
     AppComponent,
-    OfflineComponent
+    LabelMakerComponent,
+    SenderInfoComponent,
+    RecieverInfoComponent,
+    DelieveryTypeComponent,
+    WeightComponent,
+    SummaryComponent,
+    HomeComponent
+
   ],
   imports: [
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    SharedModule,
+    BrowserModule,
+    FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    CoreModule,
-    ToastrModule.forRoot(),
-    BrowserModule.withServerTransition({appId: 'test-app'}),
-    ServiceWorkerModule.register(serviceWorkerPath, { enabled: environment.production })
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
   ],
-  providers: [
-    // {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
-  ],
+  providers: [LabelsService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

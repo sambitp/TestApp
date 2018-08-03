@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row" style="margin-bottom: 20px; margin-top: 10px">
+    <div class="col-sm-12 col-xs-12 col-lg-12">
+      <h2>Label Maker</h2>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom: 20px">
+    <div class="col-sm-12 col-xs-12 col-lg-12">
+      step {{stepNumber}}
+      <progress style="width: 100%" value="{{stepNumber * 20}}" max="100">
+      </progress>
+    </div>
+  </div>
+
+  <div class="row" style="margin-bottom: 20px">
+    <div class="col-sm-12 col-xs-12 col-lg-12" [ngSwitch]="stepNumber">
+      <p *ngSwitchCase="1">Provide Sender Information</p>
+      <p *ngSwitchCase="2">Provide Reciever Information</p>
+      <p *ngSwitchCase="3">Delevery Type</p>
+      <p *ngSwitchCase="4">Weight</p>
+      <p *ngSwitchCase="5">Summary</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 col-xs-12 col-lg-12">
+
+      <app-sender-info [data]="dataObject.senderInfo" *ngIf="stepNumber == 1"></app-sender-info>
+      <app-reciever-info [data]="dataObject.recieverInfo" *ngIf="stepNumber == 2"></app-reciever-info>
+      <app-delievery-type [data]="dataObject.delieveryType" *ngIf="stepNumber == 3"></app-delievery-type>
+      <app-weight [data]="dataObject.weight" *ngIf="stepNumber == 4"></app-weight>
+      <app-summary [data]="dataObject" *ngIf="stepNumber == 5"></app-summary>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 col-xs-12 col-lg-12">
+      <button (click)="onPrev()" *ngIf="stepNumber > 1">
+        Previous
+      </button>
+
+      <button (click)="onNext()" *ngIf="stepNumber < 5">
+        Next
+      </button>
+
+      <button (click)="onSubmit()" *ngIf="stepNumber == 5">
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
